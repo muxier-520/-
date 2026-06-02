@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>弹丸论破：希望之峰学园与绝望高中生</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <!-- 页面加载动画 -->
+    <div id="loader">
+        <div style="width:80px;height:80px;position:relative;">
+            <div style="position:absolute;inset:0;border:3px solid transparent;border-top-color:#ff00cc;border-radius:50%;animation:loaderSpin 1s linear infinite;"></div>
+            <div style="position:absolute;inset:8px;border:3px solid transparent;border-top-color:#00ffff;border-radius:50%;animation:loaderSpin 1.5s linear infinite reverse;"></div>
+            <div style="position:absolute;inset:16px;border:3px solid transparent;border-top-color:#00ff88;border-radius:50%;animation:loaderSpin 2s linear infinite;"></div>
+        </div>
+        <div style="color:#ff00cc;font-size:1.4rem;font-weight:600;letter-spacing:6px;animation:loaderPulse 1.5s ease-in-out infinite alternate;">DANGANRONPA</div>
+        <div style="color:rgba(255,255,255,0.5);font-size:0.8rem;letter-spacing:4px;">LOADING...</div>
+    </div>
+
+    <!-- 滚动进度条 -->
+    <div id="progress-bar"></div>
+
+    <style>
+        @keyframes loaderSpin { to { transform: rotate(360deg); } }
+        @keyframes loaderPulse {
+            0% { opacity: 0.5; text-shadow: 0 0 5px #ff00cc; }
+            100% { opacity: 1; text-shadow: 0 0 20px #ff00cc, 0 0 40px #ff00cc, 0 0 60px #ff00cc; }
+        }
+    </style>
+
+    <!-- 粒子背景 -->
+    <div id="particles"></div>
+
+    <!-- 数字雨效果 -->
+    <canvas id="matrix" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.08;"></canvas>
+
+    <!-- 导航栏 -->
+    <nav id="navbar">
+        <div class="logo">DANGANRONPA</div>
+        <ul>
+            <li><a href="#story">背景介绍</a></li>
+            <li><a href="#gameplay">游戏玩法</a></li>
+            <li><a href="#trial">学级裁判</a></li>
+            <li><a href="#chars">角色档案</a></li>
+            <li><a href="#series">系列作品</a></li>
+            <li><a href="#media">影音资料</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero 区域 -->
+    <header id="home" class="hero-section">
+        <div class="scene" onclick="rotateBanner()">
+            <div class="carousel" id="carousel">
+                <div class="carousel-face face-1">
+                    <img src="../images/bg01.jpg" alt="背景1">
+                </div>
+                <div class="carousel-face face-2">
+                    <img src="../images/bg04.jpg" alt="背景2">
+                </div>
+                <div class="carousel-face face-3">
+                    <img src="../images/bg05.jpg" alt="背景3">
+                </div>
+                <div class="carousel-face face-4">
+                    <img src="../images/bg12.jpg" alt="背景4">
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-content">
+            <h1>超高校级的绝望</h1>
+            <p class="subtitle" id="typewriter"></p>
+            <a href="#story" class="cta-btn">探索绝望</a>
+            <div class="scroll-hint">
+                <div class="mouse"></div>
+                <span>向下滚动</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- 背景介绍 -->
+    <section id="story" class="story-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="en-label">BACKGROUND</p>
+                <h2>背景介绍</h2>
+            </div>
+            <div class="story-box reveal delay-1">
+                <p>
+                    私立希望之峰学园，这是一所集结了所有领域超一流高中生的特权学校。据说只要从这里毕业，就等于掌握了人生的成功。然而，平凡的主角苗木诚与其他14名拥有"超高校级"才能的学生，在踏入校门的瞬间却失去了意识。醒来后，他们发现自己被关在了这所门窗紧闭、与世隔绝的学园之中。
+                </p>
+                <p>
+                    自称校长的神秘玩偶"黑白熊"出现在他们面前，宣读了令人绝望的规则："若想离开这里，就必须杀掉某个人。" 在这极限的心理压力下，学生们被迫开始了一场赌上生死的"自相残杀校园生活"。
+                </p>
+                <p>
+                    当杀人事件发生后，幸存者必须通过"学级裁判"找出真凶。如果指认正确，凶手将被残酷处刑；如果指认错误，则凶手毕业，其余全员处刑。在谎言与背叛交织的辩论中，他们必须利用搜查到的证据作为"言弹"，击碎对手的谎言，查明真相并试图逃离这所绝望学园。
+                </p>
+            </div>
+
+            <!-- 世界观补充 -->
+            <div class="story-grid reveal delay-2">
+                <div class="story-card">
+                    <div class="story-card-icon">🏫</div>
+                    <h3>希望之峰学园</h3>
+                    <p>创立于二战后的精英学校，专门培养各领域的天才。学园拥有高度自治权，甚至可以无视政府法律。其真实目的是为了培养能够引领社会的领袖人才，但背后隐藏着不为人知的黑暗秘密。</p>
+                </div>
+                <div class="story-card">
+                    <div class="story-card-icon">🐻</div>
+                    <h3>黑白熊</h3>
+                    <p>自称学园校长的半黑半白玩偶熊，是"自相残杀"的始作俑者。右半身纯白可爱，左半身漆黑狰狞，象征着希望与绝望的对立。其真实身份与幕后黑手"江之岛盾子"有着千丝万缕的联系。</p>
+                </div>
+                <div class="story-card">
+                    <div class="story-card-icon">💀</div>
+                    <h3>自相残杀</h3>
+                    <p>黑白熊制定的绝望规则：学生之间可以自由杀人，但杀人者必须隐瞒身份。如果在学级裁判中未被找出，杀人者将"毕业"离开，其余人全部处刑。这种残酷的规则将人性推向了极限。</p>
+                </div>
+                <div class="story-card">
+                    <div class="story-card-icon">⚖️</div>
+                    <h3>学级裁判</h3>
+                    <p>当杀人事件发生后，幸存者必须聚集在一起进行辩论，找出真凶。这是希望与绝望的终极对决——用收集到的证据"言弹"击碎谎言，在谎言与背叛中寻找唯一的真相。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 游戏玩法 -->
+    <section id="gameplay" class="gameplay-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="en-label">SYSTEM</p>
+                <h2>游戏玩法</h2>
+            </div>
+            <div class="gameplay-content">
+                <div class="game-text-box reveal-left">
+                    <h3>高速推理动作 <span class="highlight">学级裁判</span></h3>
+                    <p>
+                        本作的核心玩法是"无休止议论"。在搜查阶段收集证据后，所有学生将聚集在法庭上进行辩论。玩家必须在高速飞过的发言字幕中，找出对手的逻辑矛盾。
+                    </p>
+                    <p>
+                        利用收集到的线索化为"言弹"，像射击游戏一样瞄准并击破谎言！这不仅是逻辑的比拼，更需要在这场"高速推理动作游戏"中，于紧张的倒计时下通过节奏按键、拼字游戏等环节揭开唯一的真相。
+                    </p>
+                </div>
+                <div class="game-img-box reveal-right">
+                    <img src="../images/img016.jpg" alt="学级裁判游戏画面">
+                    <div class="img-caption">NONSTOP DEBATE</div>
+                </div>
+            </div>
+
+            <!-- 游戏流程 -->
+            <div class="gameplay-flow reveal">
+                <h3 class="flow-title">游戏流程 / GAME FLOW</h3>
+                <div class="flow-steps">
+                    <div class="flow-step">
+                        <div class="step-number">01</div>
+                        <div class="step-content">
+                            <h4>日常生活的部分</h4>
+                            <p>在学园中自由探索，与同学们交流，增进感情，收集情报。这是暴风雨前的宁静。</p>
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="step-number">02</div>
+                        <div class="step-content">
+                            <h4>搜查阶段</h4>
+                            <p>发现尸体后进入搜查模式。在学园各处寻找线索，收集证据化为"言弹"，为学级裁判做准备。</p>
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="step-number">03</div>
+                        <div class="step-content">
+                            <h4>学级裁判</h4>
+                            <p>所有幸存者聚集辩论。通过"无休止议论"等环节，用言弹击破谎言，找出真凶。</p>
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="step-number">04</div>
+                        <div class="step-content">
+                            <h4>投票与处刑</h4>
+                            <p>最终投票指认真凶。正确则凶手被处刑，错误则全员处刑。生死就在一念之间。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 学级裁判详解 -->
+    <section id="trial" class="trial-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="en-label">CLASS TRIAL</p>
+                <h2>学级裁判系统</h2>
+            </div>
+
+            <div class="trial-intro reveal">
+                <p>学级裁判是《弹丸论破》系列的核心系统，融合了推理与动作的独特玩法。玩家需要在高速进行的辩论中，找出矛盾并用"言弹"击破谎言。</p>
+            </div>
+
+            <div class="trial-grid">
+                <div class="trial-card reveal delay-1">
+                    <div class="trial-icon">💬</div>
+                    <h3>无休止议论</h3>
+                    <p>最基本的辩论形式。发言者的言论会以字幕形式高速飞过，玩家需要在合适的时机选择正确的"言弹"击破矛盾发言。</p>
+                    <div class="trial-tag">NONSTOP DEBATE</div>
+                </div>
+
+                <div class="trial-card reveal delay-2">
+                    <div class="trial-icon">🎯</div>
+                    <h3>反驳热辩</h3>
+                    <p>弹幕射击风格的辩论环节。玩家需要操控言弹，在弹幕雨中瞄准并击破对手的反驳，类似射击游戏的玩法。</p>
+                    <div class="trial-tag">REBUTTAL SHOWDOWN</div>
+                </div>
+
+                <div class="trial-card reveal delay-3">
+                    <div class="trial-icon">🍣</div>
+                    <h3>逻辑推理</h3>
+                    <p>在旋转寿司带上，玩家需要将正确的证据与问题匹配。需要在有限时间内找出正确的逻辑链条。</p>
+                    <div class="trial-tag">LOGIC DRIVE</div>
+                </div>
+
+                <div class="trial-card reveal delay-4">
+                    <div class="trial-icon">🎹</div>
+                    <h3>节奏辩论</h3>
+                    <p>音乐节奏游戏风格的辩论。玩家需要按照节拍按下正确的按键，在节奏中找出真相。</p>
+                    <div class="trial-tag">RHYTHM BATTLE</div>
+                </div>
+
+                <div class="trial-card reveal delay-1">
+                    <div class="trial-icon">🧩</div>
+                    <h3>拼字游戏</h3>
+                    <p>通过排列正确的词汇组成完整的句子，揭露事件的真相。考验玩家的语言组织能力。</p>
+                    <div class="trial-tag">PANIC DEBATE</div>
+                </div>
+
+                <div class="trial-card reveal delay-2">
+                    <div class="trial-icon">🗳️</div>
+                    <h3>最终投票</h3>
+                    <p>辩论结束后，所有幸存者投票指认凶手。这是决定生死的关键时刻。</p>
+                    <div class="trial-tag">VOTING TIME</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 角色档案 -->
+    <section id="chars" class="char-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="en-label">CHARACTERS</p>
+                <h2>主要角色</h2>
+            </div>
+
+            <div class="char-modules-wrapper">
+                <!-- 苗木诚 -->
+                <section class="standing-section reveal" id="naegi">
+                    <div class="standing-container">
+                        <div class="art-display">
+                            <a href="naegi_gallery.html" target="_blank" title="点击进入专属画廊">
+                                <img id="naegi-art" src="../images/img001.jpg" alt="苗木诚">
+                                <div class="click-hint">🔍 点击查看图集</div>
+                            </a>
+                        </div>
+                        <div class="art-controls">
+                            <h3>苗木 诚</h3>
+                            <p class="tag">超高校级的幸运</p>
+                            <div class="bio-data">
+                                <div class="bio-row"><span class="bio-label">性别：</span><span class="bio-value">男</span></div>
+                                <div class="bio-row"><span class="bio-label">身高：</span><span class="bio-value">160cm</span></div>
+                                <div class="bio-row"><span class="bio-label">喜好：</span><span class="bio-value">看电视、玩游戏</span></div>
+                                <div class="bio-row"><span class="bio-label">背景：</span><span class="bio-desc">没有任何特殊才能的平凡高中生，凭借唯一的"幸运"被抽选入学，但本人觉得自己有些倒霉。</span></div>
+                            </div>
+                            <div class="btn-group">
+                                <button onclick="changeArt('naegi-art', '../images/img001.jpg', this)">😐 普通</button>
+                                <button onclick="changeArt('naegi-art', '../images/img004.jpg', this)">👉 质疑</button>
+                                <button onclick="changeArt('naegi-art', '../images/img005.jpg', this)">😰 沉思</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 雾切响子 -->
+                <section class="standing-section reveal" id="kirigiri">
+                    <div class="standing-container">
+                        <div class="art-display">
+                            <a href="kirigiri_gallery.html" target="_blank" title="点击查看侦探档案">
+                                <img id="kirigiri-art" src="../images/img002.jpg" alt="雾切响子">
+                                <div class="click-hint">🔍 调阅档案</div>
+                            </a>
+                        </div>
+                        <div class="art-controls">
+                            <h3>雾切 响子</h3>
+                            <p class="tag" style="background: linear-gradient(135deg, #a8a8a8, #666);">超高校级的???</p>
+                            <div class="bio-data">
+                                <div class="bio-row"><span class="bio-label">性别：</span><span class="bio-value">女</span></div>
+                                <div class="bio-row"><span class="bio-label">身高：</span><span class="bio-value">167cm</span></div>
+                                <div class="bio-row"><span class="bio-label">喜好：</span><span class="bio-value">黑咖啡</span></div>
+                                <div class="bio-row"><span class="bio-label">背景：</span><span class="bio-desc">充满神秘感的少女。对于自己的过去和才能闭口不谈，但在搜查和裁判中展现出惊人的推理能力。</span></div>
+                            </div>
+                            <div class="btn-group">
+                                <button onclick="changeArt('kirigiri-art', '../images/img002.jpg', this)">😐 冷静</button>
+                                <button onclick="changeArt('kirigiri-art', '../images/img006.jpg', this)">🤔 思考</button>
+                                <button onclick="changeArt('kirigiri-art', '../images/img007.jpg', this)">👉 质问</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 七海千秋 -->
+                <section class="standing-section reveal" id="chiaki">
+                    <div class="standing-container">
+                        <div class="art-display">
+                            <a href="chiaki_gallery.html" target="_blank" title="GAME START!">
+                                <img id="chiaki-art" src="../images/img010.jpg" alt="七海千秋">
+                                <div class="click-hint">🎮 GAME START</div>
+                            </a>
+                        </div>
+                        <div class="art-controls">
+                            <h3>七海 千秋</h3>
+                            <p class="tag" style="background: linear-gradient(135deg, #ff99cc, #ff66aa);">超高校级的游戏玩家</p>
+                            <div class="bio-data">
+                                <div class="bio-row"><span class="bio-label">性别：</span><span class="bio-value">女</span></div>
+                                <div class="bio-row"><span class="bio-label">身高：</span><span class="bio-value">160cm</span></div>
+                                <div class="bio-row"><span class="bio-label">喜好：</span><span class="bio-value">所有游戏</span></div>
+                                <div class="bio-row"><span class="bio-label">背景：</span><span class="bio-desc">性格有些天然呆，但打游戏时非常专注。在大家陷入困境时，往往能提出关键的建议。</span></div>
+                            </div>
+                            <div class="btn-group">
+                                <button onclick="changeArt('chiaki-art', '../images/img010.jpg', this)">😐 冷静</button>
+                                <button onclick="changeArt('chiaki-art', '../images/img011.jpg', this)">🤔 好奇</button>
+                                <button onclick="changeArt('chiaki-art', '../images/img012.jpg', this)">👉 歪头</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 赤松枫 -->
+                <section class="standing-section reveal" id="kaede">
+                    <div class="standing-container">
+                        <div class="art-display">
+                            <a href="kaede_gallery.html" title="大家一起出去吧！">
+                                <img id="kaede-art" src="../images/img017.jpg" alt="赤松枫">
+                                <div class="click-hint">🎹 演奏开始</div>
+                            </a>
+                        </div>
+                        <div class="art-controls">
+                            <h3>赤松 枫</h3>
+                            <p class="tag" style="background: linear-gradient(135deg, #e066ff, #aa44ff);">超高校级的钢琴家</p>
+                            <div class="bio-data">
+                                <div class="bio-row"><span class="bio-label">性别：</span><span class="bio-value">女</span></div>
+                                <div class="bio-row"><span class="bio-label">身高：</span><span class="bio-value">167cm</span></div>
+                                <div class="bio-row"><span class="bio-label">喜好：</span><span class="bio-value">钢琴</span></div>
+                                <div class="bio-row"><span class="bio-label">背景：</span><span class="bio-desc">性格开朗乐观的领袖型人物。为了从自相残杀中保护大家，总是带头行动，希望能弹奏出让大家团结的旋律。</span></div>
+                            </div>
+                            <div class="btn-group">
+                                <button onclick="changeArt('kaede-art', '../images/img017.jpg', this)">😐 坚定</button>
+                                <button onclick="changeArt('kaede-art', '../images/img018.jpg', this)">🎼 紧张</button>
+                                <button onclick="changeArt('kaede-art', '../images/img019.jpg', this)">😓 苦笑</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 黑白熊 -->
+                <section class="standing-section reveal" id="monokuma" style="border-color: rgba(255, 0, 0, 0.3);">
+                    <div class="standing-container">
+                        <div class="art-display">
+                            <a href="monokuma_gallery.html" title="噗噗噗...开始处刑吧！">
+                                <img id="monokuma-art" src="../images/img003.jpg" alt="黑白熊">
+                                <div class="click-hint">🧸 绝望入口</div>
+                            </a>
+                        </div>
+                        <div class="art-controls">
+                            <h3>黑白熊</h3>
+                            <p class="tag" style="background: linear-gradient(135deg, #ff0044, #cc0000);">希望之峰学园校长</p>
+                            <div class="bio-data">
+                                <div class="bio-row"><span class="bio-label">身份：</span><span class="bio-value">绝望的象征</span></div>
+                                <div class="bio-row"><span class="bio-label">身高：</span><span class="bio-value">65cm</span></div>
+                                <div class="bio-row"><span class="bio-label">喜好：</span><span class="bio-value">绝望、处刑</span></div>
+                                <div class="bio-row"><span class="bio-label">背景：</span><span class="bio-desc">自称校长的半黑半白玩偶熊。性格恶劣，强迫学生们自相残杀，并享受这一过程。</span></div>
+                            </div>
+                            <div class="btn-group">
+                                <button onclick="changeArt('monokuma-art', '../images/img003.jpg', this)">🧸 普通</button>
+                                <button onclick="changeArt('monokuma-art', '../images/img008.jpg', this)">🤣 大笑</button>
+                                <button onclick="changeArt('monokuma-art', '../images/img009.jpg', this)">💢 生气</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 江之岛盾子 -->
+                <section class="standing-section reveal" id="junko" style="border-color: rgba(255, 0, 0, 0.3);">
+                    <div class="standing-container">
+                        <div class="art-display">
+                            <a href="junko_gallery.html" title="感受绝望吧！">
+                                <img id="junko-art" src="../images/img013.jpg" alt="江之岛盾子">
+                                <div class="click-hint">👑 绝望皇女</div>
+                            </a>
+                        </div>
+                        <div class="art-controls">
+                            <h3>江之岛 盾子</h3>
+                            <p class="tag" style="background: linear-gradient(135deg, #ff0044, #880000);">超高校级的绝望</p>
+                            <div class="bio-data">
+                                <div class="bio-row"><span class="bio-label">性别：</span><span class="bio-value">女</span></div>
+                                <div class="bio-row"><span class="bio-label">身高：</span><span class="bio-value">169cm</span></div>
+                                <div class="bio-row"><span class="bio-label">喜好：</span><span class="bio-value">绝望</span></div>
+                                <div class="bio-row"><span class="bio-label">背景：</span><span class="bio-desc">黑白熊的幕后操控者。对世界感到无聊，唯有"无法预测的绝望"能让她感到兴奋。</span></div>
+                            </div>
+                            <div class="btn-group">
+                                <button onclick="changeArt('junko-art', '../images/img013.jpg', this)">🧸 普通</button>
+                                <button onclick="changeArt('junko-art', '../images/img014.jpg', this)">🤣 抱熊</button>
+                                <button onclick="changeArt('junko-art', '../images/img015.jpg', this)">💢 伤心</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+
+    <!-- 系列作品 -->
+    <section id="series" class="series-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="en-label">SERIES</p>
+                <h2>系列作品</h2>
+            </div>
+
+            <div class="series-grid">
+                <div class="series-card reveal delay-1">
+                    <div class="series-badge">初代</div>
+                    <h3>弹丸论破：希望的学园与绝望的高中生</h3>
+                    <p class="series-year">2010年 PSP / 后移植至 PC、PS4、Switch</p>
+                    <p>系列的开山之作。主角苗木诚与14名超高校级学生被关在希望之峰学园，被迫参与黑白熊的"自相残杀"游戏。真相与绝望交织的剧情震撼了无数玩家。</p>
+                    <div class="series-tags">
+                        <span>推理</span>
+                        <span>视觉小说</span>
+                        <span>PSP</span>
+                    </div>
+                </div>
+
+                <div class="series-card reveal delay-2">
+                    <div class="series-badge">续作</div>
+                    <h3>超级弹丸论破2：再见绝望学园</h3>
+                    <p class="series-year">2012年 PSP / 后移植至 PC、PS4</p>
+                    <p>全新角色在"贾巴沃克岛"展开的绝望冒险。16名超高校级学生被送往热带岛屿，看似天堂般的修学旅行背后隐藏着更大的阴谋。</p>
+                    <div class="series-tags">
+                        <span>推理</span>
+                        <span>群像剧</span>
+                        <span>反转</span>
+                    </div>
+                </div>
+
+                <div class="series-card reveal delay-3">
+                    <div class="series-badge">完结</div>
+                    <h3>新弹丸论破V3：大家的自相残杀新学期</h3>
+                    <p class="series-year">2017年 PS4 / PS Vita / PC</p>
+                    <p>与前作不同的全新故事线。66期学生在"天光学园"展开的绝望与希望的终极对决。争议性的结局引发了玩家社区的激烈讨论。</p>
+                    <div class="series-tags">
+                        <span>推理</span>
+                        <span>Meta</span>
+                        <span>争议</span>
+                    </div>
+                </div>
+
+                <div class="series-card reveal delay-4">
+                    <div class="series-badge">动画</div>
+                    <h3>弹丸论破 希望的学园与绝望的高中生 The Animation</h3>
+                    <p class="series-year">2015年 TV动画 / 全13话</p>
+                    <p>将初代游戏剧情改编为动画。由SILVER LINK.制作，完整还原了苗木诚在希望之峰学园的绝望与希望之旅。</p>
+                    <div class="series-tags">
+                        <span>动画</span>
+                        <span>推理</span>
+                        <span>13话</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 制作信息 -->
+            <div class="production-info reveal">
+                <h3>制作信息</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">开发商</span>
+                        <span class="info-value">Spike Chunsoft</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">剧本</span>
+                        <span class="info-value">小高和刚</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">角色设计</span>
+                        <span class="info-value">�的木一也</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">音乐</span>
+                        <span class="info-value">高�的哲平</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">首作发售</span>
+                        <span class="info-value">2010年11月25日</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">系列累计销量</span>
+                        <span class="info-value">500万+套</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 影音资料 -->
+    <section id="media" class="media-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="en-label">MEDIA</p>
+                <h2>影音资料</h2>
+            </div>
+            <div class="media-grid">
+                <div class="video-box reveal delay-1">
+                    <h3>官方宣传 PV 1</h3>
+                    <video controls poster="../images/bg04.jpg">
+                        <source src="../media/v01.mp4" type="video/mp4">
+                        您的浏览器不支持 HTML5 视频标签。
+                    </video>
+                </div>
+                <div class="video-box reveal delay-2">
+                    <h3>官方宣传 PV 2</h3>
+                    <video controls poster="../images/bg05.jpg">
+                        <source src="../media/v02.mp4" type="video/mp4">
+                        您的浏览器不支持 HTML5 视频标签。
+                    </video>
+                </div>
+                <div class="video-box reveal delay-3">
+                    <h3>官方宣传 PV 3</h3>
+                    <video controls poster="../images/bg12.jpg">
+                        <source src="../media/v03.mp4" type="video/mp4">
+                        您的浏览器不支持 HTML5 视频标签。
+                    </video>
+                </div>
+                <div class="audio-box reveal delay-4">
+                    <h3>主题曲 / OST</h3>
+                    <audio controls>
+                        <source src="../media/m01.mp3" type="audio/mpeg">
+                        您的浏览器不支持音频标签。
+                    </audio>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© Danganronpa Fan Page | 网页制作练习</p>
+    </footer>
+
+    <script>
+        // 0. 页面加载动画
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                var loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                loader.style.visibility = 'hidden';
+                setTimeout(function() {
+                    loader.remove();
+                }, 800);
+            }, 1500);
+        });
+
+        // 0.5 打字机效果
+        document.addEventListener("DOMContentLoaded", function() {
+            var typewriter = document.getElementById('typewriter');
+            var texts = [
+                '希望之峰学园的自相残杀校园生活',
+                '在绝望中寻找最后的希望',
+                '用言弹击碎一切谎言',
+                '学级裁判，现在开庭'
+            ];
+            var textIndex = 0;
+            var charIndex = 0;
+            var isDeleting = false;
+            var typeSpeed = 100;
+
+            function type() {
+                var currentText = texts[textIndex];
+
+                if (isDeleting) {
+                    typewriter.textContent = currentText.substring(0, charIndex - 1);
+                    charIndex--;
+                    typeSpeed = 30;
+                } else {
+                    typewriter.textContent = currentText.substring(0, charIndex + 1);
+                    charIndex++;
+                    typeSpeed = 80 + Math.random() * 40;
+                }
+
+                if (!isDeleting && charIndex === currentText.length) {
+                    typeSpeed = 2500;
+                    isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    textIndex = (textIndex + 1) % texts.length;
+                    typeSpeed = 500;
+                }
+
+                setTimeout(type, typeSpeed);
+            }
+
+            setTimeout(type, 2500);
+        });
+
+        // 1. 立绘切换 (带淡入淡出效果)
+        function changeArt(imgId, imagePath, btn) {
+            var img = document.getElementById(imgId);
+            if (img) {
+                img.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                img.style.opacity = '0';
+                img.style.transform = 'scale(0.95)';
+
+                setTimeout(function(){
+                    img.src = imagePath;
+                    img.onload = function() {
+                        img.style.opacity = '1';
+                        img.style.transform = 'scale(1)';
+                    };
+                }, 300);
+            }
+
+            // 更新按钮状态
+            if (btn) {
+                var btnGroup = btn.parentElement;
+                btnGroup.querySelectorAll('button').forEach(function(b) {
+                    b.classList.remove('active');
+                    b.style.transform = 'scale(1)';
+                });
+                btn.classList.add('active');
+                btn.style.transform = 'scale(1.05)';
+            }
+        }
+
+        // 2. 导航栏滚动效果 + 视差 + 进度条
+        var ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    var navbar = document.getElementById('navbar');
+                    var progressBar = document.getElementById('progress-bar');
+                    var scrollY = window.scrollY;
+
+                    // 导航栏效果
+                    if (scrollY > 50) {
+                        navbar.classList.add('scrolled');
+                    } else {
+                        navbar.classList.remove('scrolled');
+                    }
+
+                    // 滚动进度条
+                    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    var scrollPercent = (scrollY / docHeight) * 100;
+                    progressBar.style.width = scrollPercent + '%';
+
+                    // Hero 视差效果
+                    var heroContent = document.querySelector('.hero-content');
+                    if (heroContent && scrollY < window.innerHeight) {
+                        heroContent.style.transform = 'translateY(' + (scrollY * 0.4) + 'px)';
+                        heroContent.style.opacity = 1 - (scrollY / window.innerHeight);
+                    }
+
+                    // 背景旋转速度变化
+                    var carousel = document.getElementById('carousel');
+                    if (carousel && scrollY < window.innerHeight) {
+                        var brightness = Math.max(0.4 - (scrollY / window.innerHeight * 0.2), 0.2);
+                        carousel.style.filter = 'brightness(' + brightness + ')';
+                    }
+
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // 3. 滚动入场动画
+        document.addEventListener("DOMContentLoaded", function() {
+            var reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            reveals.forEach(function(el) {
+                observer.observe(el);
+            });
+        });
+
+        // 4. 3D 轮播
+        var currentRotation = 0;
+        var autoRotateInterval;
+
+        function rotateBanner() {
+            var carousel = document.getElementById('carousel');
+            currentRotation -= 90;
+            carousel.style.transform = 'translateZ(-50vw) rotateY(' + currentRotation + 'deg)';
+        }
+
+        function startAutoRotate() {
+            autoRotateInterval = setInterval(rotateBanner, 5000);
+        }
+
+        // 点击时重置自动轮播计时器
+        document.querySelector('.scene').addEventListener('click', function() {
+            clearInterval(autoRotateInterval);
+            rotateBanner();
+            startAutoRotate();
+        });
+
+        // 启动自动轮播
+        startAutoRotate();
+
+        // 5. 霓虹粒子效果
+        document.addEventListener("DOMContentLoaded", function() {
+            var particlesContainer = document.getElementById('particles');
+            var colors = [
+                { bg: '#ff00cc', shadow: 'rgba(255, 0, 204, 0.8)' },
+                { bg: '#00ffff', shadow: 'rgba(0, 255, 255, 0.8)' },
+                { bg: '#00ff88', shadow: 'rgba(0, 255, 136, 0.8)' },
+                { bg: '#8b5cf6', shadow: 'rgba(139, 92, 246, 0.8)' },
+                { bg: '#ff6b6b', shadow: 'rgba(255, 107, 107, 0.8)' },
+                { bg: '#ffd93d', shadow: 'rgba(255, 217, 61, 0.8)' }
+            ];
+
+            var particleCount = 0;
+            var maxParticles = 30;
+
+            function createParticle() {
+                if (particleCount >= maxParticles) return;
+
+                var particle = document.createElement('div');
+                particle.classList.add('particle');
+
+                var color = colors[Math.floor(Math.random() * colors.length)];
+                var size = Math.random() * 4 + 2;
+
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.background = color.bg;
+                particle.style.color = color.bg;
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particle.style.animationDelay = Math.random() * 3 + 's';
+
+                // 40% 的粒子添加发光效果
+                if (Math.random() > 0.6) {
+                    particle.classList.add('glow');
+                    particle.style.boxShadow = '0 0 ' + (size * 2) + 'px ' + color.shadow +
+                        ', 0 0 ' + (size * 4) + 'px ' + color.shadow;
+                }
+
+                particlesContainer.appendChild(particle);
+                particleCount++;
+
+                particle.addEventListener('animationend', function() {
+                    particle.remove();
+                    particleCount--;
+                });
+
+                setTimeout(function() {
+                    if (particle.parentNode) {
+                        particle.remove();
+                        particleCount--;
+                    }
+                }, 20000);
+            }
+
+            // 初始创建粒子
+            for (var i = 0; i < 15; i++) {
+                setTimeout(createParticle, i * 200);
+            }
+
+            // 持续创建粒子
+            setInterval(createParticle, 700);
+        });
+
+        // 6. 自定义光标 + 点击特效
+        document.addEventListener("DOMContentLoaded", function() {
+            // 检查是否是触屏设备
+            if ('ontouchstart' in window) return;
+
+            var cursorDot = document.createElement('div');
+            cursorDot.classList.add('cursor-dot');
+            document.body.appendChild(cursorDot);
+
+            var cursorRing = document.createElement('div');
+            cursorRing.classList.add('cursor-ring');
+            document.body.appendChild(cursorRing);
+
+            var mouseX = 0, mouseY = 0;
+            var ringX = 0, ringY = 0;
+
+            document.addEventListener('mousemove', function(e) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+
+                cursorDot.style.left = mouseX - 4 + 'px';
+                cursorDot.style.top = mouseY - 4 + 'px';
+            });
+
+            // 平滑跟随的外圈
+            function animateRing() {
+                ringX += (mouseX - ringX) * 0.15;
+                ringY += (mouseY - ringY) * 0.15;
+
+                cursorRing.style.left = ringX - 20 + 'px';
+                cursorRing.style.top = ringY - 20 + 'px';
+
+                requestAnimationFrame(animateRing);
+            }
+            animateRing();
+
+            // 点击特效 - 爆炸粒子
+            document.addEventListener('click', function(e) {
+                for (var i = 0; i < 12; i++) {
+                    var spark = document.createElement('div');
+                    spark.style.cssText = 'position:fixed;width:6px;height:6px;border-radius:50%;pointer-events:none;z-index:99999;';
+                    spark.style.left = e.clientX + 'px';
+                    spark.style.top = e.clientY + 'px';
+
+                    var colors = ['#ff00cc', '#00ffff', '#00ff88', '#8b5cf6', '#ffd93d'];
+                    spark.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    spark.style.boxShadow = '0 0 10px ' + spark.style.background;
+
+                    document.body.appendChild(spark);
+
+                    var angle = (i / 12) * Math.PI * 2;
+                    var velocity = 40 + Math.random() * 60;
+                    var tx = Math.cos(angle) * velocity;
+                    var ty = Math.sin(angle) * velocity;
+
+                    spark.animate([
+                        { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+                        { transform: 'translate(' + tx + 'px, ' + ty + 'px) scale(0)', opacity: 0 }
+                    ], {
+                        duration: 600,
+                        easing: 'cubic-bezier(0, 0.5, 0.5, 1)'
+                    }).onfinish = function() { spark.remove(); };
+                }
+            });
+
+            // 悬停在可点击元素上时放大
+            document.querySelectorAll('a, button, .art-display').forEach(function(el) {
+                el.addEventListener('mouseenter', function() {
+                    cursorRing.classList.add('hover');
+                    cursorDot.style.transform = 'scale(1.5)';
+                });
+                el.addEventListener('mouseleave', function() {
+                    cursorRing.classList.remove('hover');
+                    cursorDot.style.transform = 'scale(1)';
+                });
+            });
+        });
+
+        // 7. 数字雨效果 (Matrix 风格 - 多色版)
+        document.addEventListener("DOMContentLoaded", function() {
+            var canvas = document.getElementById('matrix');
+            var ctx = canvas.getContext('2d');
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*弹丸论破绝望希望';
+            var fontSize = 14;
+            var columns = Math.floor(canvas.width / fontSize);
+            var drops = [];
+            var colors = ['#ff00cc', '#00ffff', '#00ff88', '#8b5cf6', '#ffd93d'];
+
+            for (var x = 0; x < columns; x++) {
+                drops[x] = Math.random() * -100;
+            }
+
+            function draw() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                for (var i = 0; i < drops.length; i++) {
+                    // 随机颜色
+                    ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+                    ctx.font = fontSize + 'px monospace';
+
+                    var text = chars[Math.floor(Math.random() * chars.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+
+            setInterval(draw, 50);
+
+            window.addEventListener('resize', function() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                columns = Math.floor(canvas.width / fontSize);
+                drops = [];
+                for (var x = 0; x < columns; x++) {
+                    drops[x] = Math.random() * -100;
+                }
+            });
+        });
+
+        // 8. 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                var href = this.getAttribute('href');
+                if (href === '#') return;
+
+                var target = document.querySelector(href);
+                if (target) {
+                    var offsetTop = target.getBoundingClientRect().top + window.pageYOffset - 70;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
