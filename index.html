@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="0; url=html/index.html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>弹丸论破：希望之峰学园与绝望高中生</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+            background: #000;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .loader {
+            text-align: center;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #ff00cc;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        .text {
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            animation: pulse 1.5s ease-in-out infinite alternate;
+        }
+
+        .hint {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .hint a {
+            color: #ff00cc;
+            text-decoration: none;
+        }
+
+        .hint a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            from { opacity: 0.5; text-shadow: 0 0 5px #ff00cc; }
+            to { opacity: 1; text-shadow: 0 0 20px #ff00cc, 0 0 40px #ff00cc; }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader">
+        <div class="spinner"></div>
+        <div class="text" style="color: #ff00cc;">DANGANRONPA</div>
+        <div class="hint">
+            正在跳转... 如果没有自动跳转，请 <a href="html/index.html">点击这里</a>
+        </div>
+    </div>
+
+    <script>
+        // 备用跳转
+        setTimeout(function() {
+            window.location.href = 'html/index.html';
+        }, 2000);
+    </script>
+</body>
+</html>
