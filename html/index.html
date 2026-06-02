@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="弹丸论破粉丝网站 - 希望之峰学园与绝望高中生">
+    <meta name="theme-color" content="#000000">
     <title>弹丸论破：希望之峰学园与绝望高中生</title>
     <link rel="stylesheet" href="../css/style.css">
+    <!-- 预连接到 GitHub -->
+    <link rel="preconnect" href="https://github.com">
+    <link rel="preconnect" href="https://raw.githubusercontent.com">
 </head>
 <body>
 
@@ -54,16 +59,16 @@
         <div class="scene" onclick="rotateBanner()">
             <div class="carousel" id="carousel">
                 <div class="carousel-face face-1">
-                    <img src="../images/bg01.jpg" alt="背景1">
+                    <img src="../images/bg01.jpg" alt="背景1" loading="eager">
                 </div>
                 <div class="carousel-face face-2">
-                    <img src="../images/bg04.jpg" alt="背景2">
+                    <img src="../images/bg04.jpg" alt="背景2" loading="lazy">
                 </div>
                 <div class="carousel-face face-3">
-                    <img src="../images/bg05.jpg" alt="背景3">
+                    <img src="../images/bg05.jpg" alt="背景3" loading="lazy">
                 </div>
                 <div class="carousel-face face-4">
-                    <img src="../images/bg12.jpg" alt="背景4">
+                    <img src="../images/bg12.jpg" alt="背景4" loading="lazy">
                 </div>
             </div>
         </div>
@@ -142,7 +147,7 @@
                     </p>
                 </div>
                 <div class="game-img-box reveal-right">
-                    <img src="../images/img016.jpg" alt="学级裁判游戏画面">
+                    <img src="../images/img016.jpg" alt="学级裁判游戏画面" loading="lazy">
                     <div class="img-caption">NONSTOP DEBATE</div>
                 </div>
             </div>
@@ -256,7 +261,7 @@
                     <div class="standing-container">
                         <div class="art-display">
                             <a href="naegi_gallery.html" target="_blank" title="点击进入专属画廊">
-                                <img id="naegi-art" src="../images/img001.jpg" alt="苗木诚">
+                                <img id="naegi-art" src="../images/img001.jpg" alt="苗木诚" loading="lazy">
                                 <div class="click-hint">🔍 点击查看图集</div>
                             </a>
                         </div>
@@ -283,7 +288,7 @@
                     <div class="standing-container">
                         <div class="art-display">
                             <a href="kirigiri_gallery.html" target="_blank" title="点击查看侦探档案">
-                                <img id="kirigiri-art" src="../images/img002.jpg" alt="雾切响子">
+                                <img id="kirigiri-art" src="../images/img002.jpg" alt="雾切响子" loading="lazy">
                                 <div class="click-hint">🔍 调阅档案</div>
                             </a>
                         </div>
@@ -310,7 +315,7 @@
                     <div class="standing-container">
                         <div class="art-display">
                             <a href="chiaki_gallery.html" target="_blank" title="GAME START!">
-                                <img id="chiaki-art" src="../images/img010.jpg" alt="七海千秋">
+                                <img id="chiaki-art" src="../images/img010.jpg" alt="七海千秋" loading="lazy">
                                 <div class="click-hint">🎮 GAME START</div>
                             </a>
                         </div>
@@ -337,7 +342,7 @@
                     <div class="standing-container">
                         <div class="art-display">
                             <a href="kaede_gallery.html" title="大家一起出去吧！">
-                                <img id="kaede-art" src="../images/img017.jpg" alt="赤松枫">
+                                <img id="kaede-art" src="../images/img017.jpg" alt="赤松枫" loading="lazy">
                                 <div class="click-hint">🎹 演奏开始</div>
                             </a>
                         </div>
@@ -364,7 +369,7 @@
                     <div class="standing-container">
                         <div class="art-display">
                             <a href="monokuma_gallery.html" title="噗噗噗...开始处刑吧！">
-                                <img id="monokuma-art" src="../images/img003.jpg" alt="黑白熊">
+                                <img id="monokuma-art" src="../images/img003.jpg" alt="黑白熊" loading="lazy">
                                 <div class="click-hint">🧸 绝望入口</div>
                             </a>
                         </div>
@@ -391,7 +396,7 @@
                     <div class="standing-container">
                         <div class="art-display">
                             <a href="junko_gallery.html" title="感受绝望吧！">
-                                <img id="junko-art" src="../images/img013.jpg" alt="江之岛盾子">
+                                <img id="junko-art" src="../images/img013.jpg" alt="江之岛盾子" loading="lazy">
                                 <div class="click-hint">👑 绝望皇女</div>
                             </a>
                         </div>
@@ -517,28 +522,28 @@
             <div class="media-grid">
                 <div class="video-box reveal delay-1">
                     <h3>官方宣传 PV 1</h3>
-                    <video controls poster="../images/bg04.jpg">
+                    <video controls poster="../images/bg04.jpg" preload="none">
                         <source src="../media/v01.mp4" type="video/mp4">
                         您的浏览器不支持 HTML5 视频标签。
                     </video>
                 </div>
                 <div class="video-box reveal delay-2">
                     <h3>官方宣传 PV 2</h3>
-                    <video controls poster="../images/bg05.jpg">
+                    <video controls poster="../images/bg05.jpg" preload="none">
                         <source src="../media/v02.mp4" type="video/mp4">
                         您的浏览器不支持 HTML5 视频标签。
                     </video>
                 </div>
                 <div class="video-box reveal delay-3">
                     <h3>官方宣传 PV 3</h3>
-                    <video controls poster="../images/bg12.jpg">
+                    <video controls poster="../images/bg12.jpg" preload="none">
                         <source src="../media/v03.mp4" type="video/mp4">
                         您的浏览器不支持 HTML5 视频标签。
                     </video>
                 </div>
                 <div class="audio-box reveal delay-4">
                     <h3>主题曲 / OST</h3>
-                    <audio controls>
+                    <audio controls preload="none">
                         <source src="../media/m01.mp3" type="audio/mpeg">
                         您的浏览器不支持音频标签。
                     </audio>

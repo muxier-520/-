@@ -2,6 +2,38 @@
    DANGANRONPA - 苹果风格高级界面
    ========================================= */
 
+/* ==================== 性能优化 ==================== */
+/* GPU 加速 */
+.gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+/* 图片优化 */
+img {
+    max-width: 100%;
+    height: auto;
+    image-rendering: -webkit-optimize-contrast;
+}
+
+/* 视频优化 */
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 减少重绘重排 */
+.standing-section,
+.game-img-box,
+.video-box,
+.audio-box,
+.story-card,
+.trial-card,
+.series-card {
+    contain: layout style;
+}
+
 /* ==================== 基础重置 ==================== */
 * {
     margin: 0;
